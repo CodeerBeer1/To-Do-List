@@ -7,10 +7,10 @@ $database = "list";
 
 $dsn = 'mysql:host='.$server.';dbname='.$database;
 $pdo = new PDO($dsn, $username, $password);
+
 try
 {
     $pdo = new PDO($dsn, $username, $password);
-    echo "connectie gemaakt";
 }
 
 catch(PDOException $e)
@@ -18,14 +18,24 @@ catch(PDOException $e)
     print $e->getMessage();
 }
 
-$sql = "INSERT INTO benodigdheden (de ding) VALUES (?, ?)";
-$statement = $pdo->prepare($sql);
-$statement->execute(array("auto", "wiel"));
+function add($conn)
+{
+    $sql = "INSERT INTO `list`(`member`, `amount`) VALUES (?, ?)";
+    $statement = $conn->prepare($sql);
+    $statement->execute(array("auto", 5));
+}
+
+$all = "SELECT * FROM  list";
 
 ?>
 
-<h1>
+<h1 style="font-family: arial">
 
-
+To Do List
 
 </h1>
+<form method="post">
+
+<label name="name"></label>
+
+</form>
