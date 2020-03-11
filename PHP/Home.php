@@ -18,14 +18,7 @@ catch(PDOException $e)
     print $e->getMessage();
 }
 
-function add($conn)
-{
-    $sql = "INSERT INTO `list`(`member`, `amount`) VALUES (?, ?)";
-    $statement = $conn->prepare($sql);
-    $statement->execute(array("auto", 5));
-}
-
-$all = "SELECT * FROM  list";
+$all = $pdo->query("SELECT * FROM  list");
 
 ?>
 
@@ -34,8 +27,38 @@ $all = "SELECT * FROM  list";
 To Do List
 
 </h1>
-<form method="post">
 
-<label name="name"></label>
+<table>
 
-</form>
+<tr>
+    <th>
+        
+    </th>
+</tr>
+
+<?php 
+
+        while ($row = $all->fetch(PDO::FETCH_ASSOC))
+        {
+            ?>
+            <tr>
+                <td>
+                    <?php
+                        echo $row["Tasks"];
+                    ?>
+                </td>
+
+                <td>
+                    <a href="edit.php?id= <?php echo $row["id"] ?>"><button>Bewerk</button></a>
+                </td>
+
+                <td>
+                    <a><button>Verwijder</button></a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+
+
+</table>
