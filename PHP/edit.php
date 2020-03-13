@@ -1,35 +1,12 @@
 <?php
 
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "list";
-
-$dsn = 'mysql:host='.$server.';dbname='.$database;
-$pdo = new PDO($dsn, $username, $password);
-
-try
-{
-    $pdo = new PDO($dsn, $username, $password);
-}
-
-catch(PDOException $e)
-{
-    print $e->getMessage();
-}
+include "DBConn.php";
 
 $id = $_GET["id"];
 
 $sql = "SELECT `Tasks` FROM list WHERE id = $id";
 $all = $pdo->query($sql);
 $alles = $all->fetch();
-
-function edit($conn)
-{
-    echo "hoi";
-    $sql = "UPDATE `list` SET `Tasks`= ?, WHERE id = $id";
-    $query = $conn->prepare($sql);
-}
 
 ?>
 
@@ -39,9 +16,10 @@ Bewerken
 
 </h1>
 
-<form method="post" action="edit()">
+<form method="post" action="editScript.php?id=<?php echo $id ?>">
 
-    <input value="<?php echo $alles["Tasks"] ?>"></input>
+    <input name="task" value="<?php echo $alles["Tasks"] ?>"></input>
+    <input type="submit"></input>
 
 </form>
 

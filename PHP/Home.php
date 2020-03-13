@@ -1,22 +1,6 @@
 <?php
 
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "list";
-
-$dsn = 'mysql:host='.$server.';dbname='.$database;
-$pdo = new PDO($dsn, $username, $password);
-
-try
-{
-    $pdo = new PDO($dsn, $username, $password);
-}
-
-catch(PDOException $e)
-{
-    print $e->getMessage();
-}
+include "DBConn.php";
 
 $all = $pdo->query("SELECT * FROM  list");
 
@@ -32,7 +16,10 @@ To Do List
 
 <tr>
     <th>
-        
+        Task
+    </th>
+    <th>
+        status
     </th>
 </tr>
 
@@ -49,16 +36,26 @@ To Do List
                 </td>
 
                 <td>
+                    <button id="status" onclick="changeStatus( <?php $row['id'] ?> )"><?php
+                        echo $row["status"];
+                    ?></button>
+                </td>
+
+                <td>
                     <a href="edit.php?id= <?php echo $row["id"] ?>"><button>Bewerk</button></a>
                 </td>
 
                 <td>
-                    <a><button>Verwijder</button></a>
+                    <a href="delete.php?id= <?php echo $row["id"] ?>"><button>Verwijder</button></a>
                 </td>
             </tr>
             <?php
         }
         ?>
 
+        <a href="add.php"><button>Toevoegen</button></a>
+
 
 </table>
+
+<script src="java.js"></script>
