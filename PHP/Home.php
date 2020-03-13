@@ -36,7 +36,7 @@ To Do List
                 </td>
 
                 <td>
-                    <button id="status" onclick="changeStatus( <?php $row['id'] ?> )"><?php
+                    <button id="status <?php echo $row["id"] ?>" onclick="changeStatus( <?php echo $row['id'] ?> )"><?php
                         echo $row["status"];
                     ?></button>
                 </td>
